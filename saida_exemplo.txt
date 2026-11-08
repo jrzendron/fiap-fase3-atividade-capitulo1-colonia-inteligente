@@ -33,9 +33,9 @@ Navegacao pela Colonia, Sistema Energetico, Solar: Solar encontrado
 ================================================================
  2) PREVISAO (regressao linear)
 ================================================================
-Eolica: energia = 2.65 * vento -1.50  (erro medio 0.68)
+Eolica: energia = -1.50 +2.65 * vento  (erro medio 0.68)
    vento = 11 m/s; previsao = 27.6 kWh
-Solar:  energia = 0.050 * irradiacao +0.20
+Solar:  energia = 0.20 +0.050 * irradiacao
    irradiacao = 450 W/m2; previsao = 22.7 kWh
 Consumo: tendencia subindo (+3.5 kWh/h); proxima hora: 72.1 kWh
 
@@ -85,7 +85,7 @@ reserva=80%, consumo=30 kWh. Decisao: OK: colonia operando normalmente
 
 geracao=40 kWh, consumo=70 kWh. Analise: ALERTA: consumo maior que geracao
 geracao=80 kWh, consumo=30 kWh. Analise: SUGESTAO: armazenar energia excedente
-geracao=60 kWh, consumo=58 kWh. Analise: OK: geracao e consumo equilibrados
+geracao=60 kWh, consumo=58 kWh. Analise: SUGESTAO: armazenar energia excedente
 
-vento=[8,10,12], energia=[20,25,30]. Reta: energia = 2.5*vento + 0.0
+vento=[8,10,12], energia=[20,25,30]. Reta: energia = 0.0 + 2.5*vento
 vento = 11; previsao de energia = 27.5 kWh

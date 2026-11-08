@@ -1,16 +1,13 @@
 """Compara a energia gerada com a energia consumida."""
 
-MARGEM_EQUILIBRIO = 5  # Até 5 kWh de diferença é considerado equilíbrio.
-
-
 def analisar_energia(geracao, consumo, reserva=None):
     """Devolve o saldo, a situação e uma mensagem para a equipe."""
     saldo = geracao - consumo  # Saldo positivo indica sobra de energia.
 
-    if abs(saldo) <= MARGEM_EQUILIBRIO:  # Diferença pequena não exige ação.
+    if saldo == 0:  # Só há equilíbrio quando geração e consumo são iguais.
         situacao = "EQUILIBRIO"  # Identifica o caso para outras regras.
         mensagem = "OK: geracao e consumo equilibrados"
-    elif consumo > geracao:  # A colônia usa mais do que gera.
+    elif saldo < 0:  # A colônia usa mais do que gera.
         situacao = "DEFICIT"  # O saldo negativo pede atenção.
         mensagem = "ALERTA: consumo maior que geracao"
     else:  # A geração supera o consumo.
