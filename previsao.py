@@ -1,56 +1,45 @@
-"""
-previsao.py - MODELO DE PREVISAO (regressao linear simples)
-
-Ajusta uma reta  y = a*x + b  pelo metodo dos minimos quadrados:
-
-    a = soma((x - media_x) * (y - media_y)) / soma((x - media_x)^2)
-    b = media_y - a * media_x
-
-Sem bibliotecas: so listas, laços e funcoes.
-"""
+"""Cálculos de regressão linear usados nas previsões."""
 
 
 def media(valores):
-    return sum(valores) / len(valores)
+    """Calcula a média dos valores recebidos."""
+    return sum(valores) / len(valores)  # Soma os valores e divide pela quantidade.
 
 
 def ajustar_reta(x, y):
-    """Recebe duas listas do mesmo tamanho e retorna (a, b) da reta y = a*x + b."""
-    if len(x) != len(y) or len(x) < 2:
+    """Encontra a inclinação e o ponto inicial da reta que aproxima os dados."""
+    if len(x) != len(y) or len(x) < 2:  # Cada entrada precisa ter uma saída.
         raise ValueError("As listas precisam ter o mesmo tamanho (minimo 2 pontos).")
 
-    mx = media(x)
-    my = media(y)
+    mx = media(x)  # Centro dos valores de entrada.
+    my = media(y)  # Centro dos valores de saída.
 
-    numerador = 0
-    denominador = 0
-    for i in range(len(x)):
+    numerador = 0  # Mede como entrada e saída variam juntas.
+    denominador = 0  # Mede a variação das entradas.
+    for i in range(len(x)):  # Usa todas as medições históricas.
         numerador = numerador + (x[i] - mx) * (y[i] - my)
         denominador = denominador + (x[i] - mx) ** 2
 
-    a = numerador / denominador
-    b = my - a * mx
-    return a, b
+    a = numerador / denominador  # Inclinação da reta.
+    b = my - a * mx  # Valor onde a reta começa.
+    return a, b  # Esses dois números permitem prever outro ponto.
 
 
 def prever(a, b, x_novo):
-    """Usa a reta para estimar um valor futuro."""
-    return a * x_novo + b
+    """Aplica a reta a um novo valor de entrada."""
+    return a * x_novo + b  # Exemplo: vento previsto vira energia estimada.
 
 
 def erro_medio(x, y, a, b):
-    """Erro medio absoluto: quanto, em media, a reta erra nos dados historicos."""
-    erros = []
-    for i in range(len(x)):
+    """Mostra a diferença média entre a reta e os dados conhecidos."""
+    erros = []  # Guarda o erro de cada medição.
+    for i in range(len(x)):  # Compara previsão e resultado real.
         erros.append(abs(y[i] - prever(a, b, x[i])))
-    return media(erros)
+    return media(erros)  # Resume os erros em um único valor.
 
 
 def tendencia(serie):
-    """
-    Previsao da PROXIMA posicao de uma serie temporal (ex.: consumo por hora).
-    O eixo x vira o tempo: 0, 1, 2, ...
-    """
-    tempos = list(range(len(serie)))
-    a, b = ajustar_reta(tempos, serie)
-    return prever(a, b, len(serie)), a
+    """Estima o próximo valor de uma sequência, como o consumo por hora."""
+    tempos = list(range(len(serie)))  # Numera as horas a partir de zero.
+    a, b = ajustar_reta(tempos, serie)  # Ajusta a reta ao histórico.
+    return prever(a, b, len(serie)), a  # Devolve a próxima hora e a tendência.

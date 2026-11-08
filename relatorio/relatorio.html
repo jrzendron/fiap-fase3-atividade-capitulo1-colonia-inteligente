@@ -2,87 +2,42 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Relatório – Colônia Inteligente</title>
+<title>Relatório da colônia inteligente</title>
 <style>
-  @page { size: A4; margin: 1.5cm; }
-  body { font-family: "Segoe UI", Arial, sans-serif; font-size: 10pt; color: #1d1d1f; line-height: 1.35; }
-  h1 { font-size: 18pt; margin: 0 0 4px; }
-  .sub { color: #666; margin-bottom: 12px; }
-  h2 { font-size: 12pt; border-bottom: 2px solid #c2410c; padding-bottom: 3px; margin-top: 16px; }
-  table { border-collapse: collapse; width: 100%; margin: 6px 0; font-size: 9pt; }
-  th, td { border: 1px solid #ccc; padding: 4px 7px; text-align: left; vertical-align: top; }
-  th { background: #f3f3f3; }
-  code, pre { font-family: Consolas, monospace; font-size: 9pt; }
-  pre { background: #f6f6f6; border: 1px solid #ddd; padding: 8px; white-space: pre-wrap; }
-  .link { font-size: 10pt; font-weight: 600; overflow-wrap: anywhere; }
+  @page { size: A4; margin: 2cm; }
+  body { font-family: Arial, sans-serif; font-size: 10.5pt; line-height: 1.45; color: #222; }
+  h1 { font-size: 18pt; font-weight: normal; margin: 0 0 4px; }
+  h2 { font-size: 12pt; font-weight: normal; margin: 20px 0 6px; border-bottom: 1px solid #999; padding-bottom: 3px; }
+  p { margin: 0 0 10px; }
+  .subtitulo { color: #555; margin-bottom: 20px; }
+  .exemplo { background: #f4f4f4; padding: 9px 12px; font-family: monospace; font-size: 9.5pt; }
+  .link { font-family: monospace; font-size: 9pt; white-space: nowrap; }
 </style>
 </head>
 <body>
-<h1>Colônia Inteligente – Sistema Integrado de Energia</h1>
-<div class="sub">FIAP - Fase 3 - Atividade do Capítulo 1 - 2026</div>
+<h1>Sistema de energia da colônia</h1>
+<p class="subtitulo">FIAP, Fase 3, Atividade do Capítulo 1</p>
 
-<h2>1. Visão geral</h2>
-<p>O sistema, escrito em Python puro e organizado em funções, executa um ciclo de quatro etapas:
-<b>dados → previsão → análise → decisão</b>. Cada etapa fica em um arquivo próprio, separando os
-dados (<code>dados.py</code>), a lógica (<code>estruturas.py</code>, <code>previsao.py</code>,
-<code>analise_energia.py</code>) e as decisões (<code>regras.py</code>). O <code>main.py</code> integra tudo.</p>
+<h2>Como o sistema funciona</h2>
+<p>O programa reúne os dados da colônia, calcula a geração prevista, compara essa geração com o consumo e escolhe uma ação. O arquivo main.py coordena as etapas. Os dados, os cálculos e as regras ficam em arquivos separados.</p>
 
-<h2>2. Como os dados foram organizados</h2>
-<table>
-<tr><th>Estrutura</th><th>Uso na colônia</th></tr>
-<tr><td>Listas</td><td>Históricos paralelos: vento × energia eólica, irradiação × energia solar, consumo por hora.</td></tr>
-<tr><td>Dicionário (chave-valor)</td><td><code>estado_atual</code>: reserva, consumo, temperatura, vento e irradiação previstos, tempestade.</td></tr>
-<tr><td>Tabela hash (índice)</td><td>Dicionário <code>nome → subsistema</code> gerado a partir da árvore; busca em O(1) em vez de O(n).</td></tr>
-<tr><td>Árvore (hierarquia)</td><td>Colônia → Sistema Energético (Solar, Eólico, Baterias), Suporte à Vida (Oxigênio, Aquecimento, Água), Produção (Estufa, Laboratório), Conforto (Iluminação, Entretenimento). Percorrida por recursão.</td></tr>
-</table>
-<p>A reserva está em porcentagem; geração e consumo estão em kWh. Cada equipamento da árvore tem <b>prioridade</b> (1 = essencial, 2 = importante, 3 = não essencial),
-<b>consumo</b> e estado <b>ligado/desligado</b>. O consumo total é calculado somando as folhas ligadas.</p>
+<h2>Organização dos dados</h2>
+<p>As medições anteriores de vento, irradiação e consumo ficam em listas. Um dicionário guarda o estado atual. Os equipamentos são organizados em uma hierarquia com sistema energético, suporte à vida, produção e conforto. A reserva está em porcentagem; geração e consumo estão em kWh.</p>
+<p>Cada equipamento tem um consumo, uma prioridade e um estado ligado ou desligado. Os equipamentos de suporte à vida têm prioridade 1 e não são desligados pelas regras.</p>
 
-<h2>3. Regras de decisão</h2>
-<p>Os dados são transformados em proposições lógicas (Verdadeiro/Falso) e combinados com E, OU e NÃO:</p>
-<table>
-<tr><th>Proposição</th><th>Condição</th></tr>
-<tr><td>A</td><td>reserva &lt; 50%</td></tr>
-<tr><td>B</td><td>consumo &gt; 60 kWh</td></tr>
-<tr><td>C</td><td>reserva &lt; 20%</td></tr>
-<tr><td>D</td><td>temperatura &lt; −80 °C</td></tr>
-<tr><td>E</td><td>geração prevista &lt; consumo</td></tr>
-<tr><td>F</td><td>tempestade de poeira</td></tr>
-</table>
-<table>
-<tr><th>Regra</th><th>Expressão</th><th>Ação</th></tr>
-<tr><td>R1</td><td>C OU (D E A)</td><td>EMERGÊNCIA: só suporte à vida (desliga prioridade 2 e 3)</td></tr>
-<tr><td>R2</td><td>A E B</td><td>Modo economia (desliga prioridade 3)</td></tr>
-<tr><td>R3</td><td>A</td><td>ALERTA: reduzir consumo</td></tr>
-<tr><td>R4</td><td>E E NÃO A</td><td>Prevenção: déficit previsto, reduzir antes</td></tr>
-<tr><td>R5</td><td>F</td><td>Priorizar eólica e baterias</td></tr>
-<tr><td>R6</td><td>nenhuma acima</td><td>Operação normal</td></tr>
-</table>
-<p><b>Priorização:</b> as regras são avaliadas da mais grave para a menos grave. O suporte à vida
-(prioridade 1) nunca é desligado; em economia desligam-se os sistemas de prioridade 3 e em emergência os de prioridade 2 e 3.</p>
-<pre>Entrada: reserva = 40%, consumo = 70 kWh   (A = V, B = V)
-Saída:   ATIVAR MODO ECONOMIA | ALERTA: reduzir consumo</pre>
+<h2>Regras de decisão</h2>
+<p>Se a reserva cair abaixo de 20%, o sistema entra em emergência e desliga as prioridades 2 e 3. Se a reserva estiver abaixo de 50% e o consumo passar de 60 kWh, entra em modo de economia e desliga a prioridade 3. Uma reserva abaixo de 50% também gera um alerta para reduzir o consumo.</p>
+<p>Quando a geração prevista não cobre o consumo, o programa avisa antes de faltar energia. Em uma tempestade de poeira, recomenda priorizar a geração eólica e as baterias.</p>
+<p class="exemplo">Entrada: reserva de 40% e consumo de 70 kWh.<br>Saída: modo de economia e alerta para reduzir o consumo.</p>
 
-<h2>4. Modelo de previsão</h2>
-<p>Regressão linear simples, implementada à mão pelo método dos mínimos quadrados:</p>
-<pre>a = Σ(x − x̄)(y − ȳ) / Σ(x − x̄)²        b = ȳ − a·x̄        y = a·x + b</pre>
-<ul>
-<li><b>Vento → energia eólica:</b> com os dados do enunciado (vento = [8, 10, 12], energia = [20, 25, 30]) a reta é
-<code>energia = 2,5·vento</code>; para vento = 11 a previsão é <b>≈ 27,5 kWh</b>. Com o histórico completo (5 pontos), <code>energia = 2,65·vento − 1,50</code>, erro médio de 0,68 kWh.</li>
-<li><b>Irradiação → energia solar:</b> <code>energia = 0,05·irradiação + 0,2</code> (com tempestade de poeira, a previsão cai para 30%).</li>
-<li><b>Tendência do consumo:</b> regressão com o tempo no eixo x indica alta de +3,5 kWh/h (≈ 72 kWh na próxima hora).</li>
-</ul>
-<p>O erro médio absoluto mostra o quanto a reta se afasta dos dados históricos.</p>
+<h2>Previsão de energia</h2>
+<p>A previsão usa regressão linear simples, calculada com os dados históricos. Com ventos de 8, 10 e 12 m/s e gerações de 20, 25 e 30 kWh, um vento de 11 m/s resulta em aproximadamente 27,5 kWh de energia eólica. O programa também estima a geração solar a partir da irradiação prevista.</p>
 
-<h2>5. Como o sistema melhora o uso de energia</h2>
-<ul>
-<li><b>Análise geração × consumo:</b> consumo &gt; geração → “ALERTA: consumo maior que geração”; geração &gt; consumo → “SUGESTÃO: armazenar energia excedente”; diferença ≤ 5 kWh → equilíbrio. A reserva indica se o déficit é crítico.</li>
-<li><b>Ação antecipada:</b> como usa a geração <i>prevista</i>, o sistema reduz o consumo antes de a energia faltar (passa de reativo a preditivo).</li>
-<li><b>Corte inteligente:</b> no cenário de teste (reserva 40%, consumo 70 kWh, geração prevista 50,3 kWh), o modo economia desligou Laboratório, Iluminação Decorativa e Entretenimento, reduzindo o consumo de <b>70 para 45 kWh (−25 kWh)</b> e eliminando o déficit sem afetar o suporte à vida.</li>
-</ul>
+<h2>Uso de energia</h2>
+<p>O sistema compara geração e consumo. Se o consumo for maior, mostra um alerta. Se houver sobra, sugere armazenar a energia. No cenário apresentado, a geração prevista é de 50,3 kWh e o consumo inicial é de 70 kWh. Ao desligar os equipamentos não essenciais, o consumo cai para 45 kWh, sem interromper o suporte à vida.</p>
 
-<h2>6. Repositório</h2>
-<p class="link">GitHub: <a href="https://github.com/rdlach/fiap-fase3-atividade-capitulo1-colonia-inteligente">https://github.com/rdlach/fiap-fase3-atividade-capitulo1-colonia-inteligente</a></p>
-<p>Para executar: <code>python main.py</code> (sem dependências externas).</p>
+<h2>Repositório</h2>
+<p>Código e instruções de execução:</p>
+<p class="link"><a href="https://github.com/rdlach/fiap-fase3-atividade-capitulo1-colonia-inteligente">https://github.com/rdlach/fiap-fase3-atividade-capitulo1-colonia-inteligente</a></p>
 </body>
 </html>

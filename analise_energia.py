@@ -1,48 +1,41 @@
-"""
-analise_energia.py - ANALISE DO USO DE ENERGIA
-Compara geracao x consumo (e a reserva) e devolve um diagnostico.
-"""
+"""Compara a energia gerada com a energia consumida."""
 
-MARGEM_EQUILIBRIO = 5  # diferenca (kWh) considerada "equilibrada"
+MARGEM_EQUILIBRIO = 5  # Até 5 kWh de diferença é considerado equilíbrio.
 
 
 def analisar_energia(geracao, consumo, reserva=None):
-    """
-    Retorna um dicionario com saldo, situacao e mensagem.
-      consumo > geracao  -> RISCO (deficit)
-      geracao > consumo  -> possivel DESPERDICIO (sobra)
-      diferenca pequena  -> EQUILIBRIO
-    """
-    saldo = geracao - consumo
+    """Devolve o saldo, a situação e uma mensagem para a equipe."""
+    saldo = geracao - consumo  # Saldo positivo indica sobra de energia.
 
-    if abs(saldo) <= MARGEM_EQUILIBRIO:
-        situacao = "EQUILIBRIO"
+    if abs(saldo) <= MARGEM_EQUILIBRIO:  # Diferença pequena não exige ação.
+        situacao = "EQUILIBRIO"  # Identifica o caso para outras regras.
         mensagem = "OK: geracao e consumo equilibrados"
-    elif consumo > geracao:
-        situacao = "DEFICIT"
+    elif consumo > geracao:  # A colônia usa mais do que gera.
+        situacao = "DEFICIT"  # O saldo negativo pede atenção.
         mensagem = "ALERTA: consumo maior que geracao"
-    else:
-        situacao = "EXCEDENTE"
+    else:  # A geração supera o consumo.
+        situacao = "EXCEDENTE"  # Há energia disponível para guardar.
         mensagem = "SUGESTAO: armazenar energia excedente"
 
-    # Reserva entra como informacao extra
+    # A reserva, quando informada, detalha o risco do déficit.
     if reserva is not None and situacao == "DEFICIT":
-        if reserva < 20:
+        if reserva < 20:  # A bateria está em nível crítico.
             mensagem += " e reserva CRITICA"
-        elif reserva < 50:
+        elif reserva < 50:  # Ainda há reserva, mas ela está baixa.
             mensagem += " e reserva baixa"
-        else:
-            mensagem += " (reserva acima de 50%)"
+        else:  # A bateria tem pelo menos metade da carga.
+            mensagem += " (reserva de pelo menos 50%)"
 
-    if reserva is not None and situacao == "EXCEDENTE" and reserva >= 100:
+    if reserva is not None and situacao == "EXCEDENTE" and reserva >= 100:  # Baterias cheias.
         mensagem = "SUGESTAO: baterias cheias - ligar sistemas nao essenciais / estufa"
 
+    # Mantém os números junto da classificação para uso no relatório da execução.
     return {"geracao": geracao, "consumo": consumo, "saldo": saldo,
             "situacao": situacao, "mensagem": mensagem}
 
 
 def eficiencia(geracao, consumo):
-    """Percentual do consumo coberto pela geracao."""
-    if consumo == 0:
+    """Calcula quanto do consumo a geração consegue cobrir."""
+    if consumo == 0:  # Evita divisão por zero quando não há consumo.
         return 100.0
-    return round(geracao / consumo * 100, 1)
+    return round(geracao / consumo * 100, 1)  # Mostra uma casa decimal.
