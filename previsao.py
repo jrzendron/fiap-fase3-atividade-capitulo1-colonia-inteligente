@@ -20,6 +20,8 @@ def ajustar_reta(x, y):
         soma_produtos = soma_produtos + (x[i] - x_barra) * (y[i] - y_barra)
         soma_quadrados_x = soma_quadrados_x + (x[i] - x_barra) ** 2
 
+    if soma_quadrados_x == 0:  # Entradas iguais não definem a inclinação.
+        raise ValueError("O historico precisa ter pelo menos dois valores distintos de entrada.")
     beta1 = soma_produtos / soma_quadrados_x  # β1: inclinação da reta.
     beta0 = y_barra - beta1 * x_barra         # β0: intercepto (valor de y quando x = 0).
     return beta0, beta1  # Mesma ordem do capítulo: ŷ = β0 + β1·x
@@ -31,7 +33,7 @@ def prever(beta0, beta1, x_novo):
 
 
 def erro_medio(x, y, beta0, beta1):
-    """Média dos resíduos (ei = yi − ŷi) em valor absoluto."""
+    """Erro absoluto médio; resíduo = valor observado − valor previsto (ei = yi − ŷi)."""
     residuos = []  # Guarda o resíduo de cada medição.
     for i in range(len(x)):  # Compara valor real e previsto.
         residuo = y[i] - prever(beta0, beta1, x[i])

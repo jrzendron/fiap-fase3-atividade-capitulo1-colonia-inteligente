@@ -33,24 +33,25 @@ Navegacao pela Colonia, Sistema Energetico, Solar: Solar encontrado
 ================================================================
  2) PREVISAO (regressao linear)
 ================================================================
-Eolica: energia = -1.50 +2.65 * vento  (erro medio 0.68)
+Eolica: energia = -1.50 +2.65 * vento
+   Erro absoluto medio no historico de ajuste: 0.68 kWh
    vento = 11 m/s; previsao = 27.6 kWh
 Solar:  energia = 0.20 +0.050 * irradiacao
    irradiacao = 450 W/m2; previsao = 22.7 kWh
-Consumo: tendencia subindo (+3.5 kWh/h); proxima hora: 72.1 kWh
+Estimativa de consumo pela tendencia historica (subindo, +3.5 kWh/h): 72.1 kWh
 
 ================================================================
  3) ANALISE DE ENERGIA
 ================================================================
-Geracao prevista: 50.3 kWh | Consumo: 70 kWh | Saldo: -19.7 kWh
+Geracao prevista: 50.35 kWh | Demanda de referencia da proxima hora com as cargas atuais: 70 kWh | Saldo: -19.65 kWh
 Cobertura: 71.9%
 Resultado: ALERTA: consumo maior que geracao e reserva baixa
 
 ================================================================
  4) DECISAO AUTOMATICA
 ================================================================
-Proposicoes: A=V, B=V, C=F, D=F, E=V, F=F
-Modo: ECONOMIA
+Proposicoes: A (reserva baixa)=V, B (consumo alto)=V, C (reserva critica)=F, D (frio extremo)=F, E (deficit previsto)=V, F (tempestade de poeira)=F
+Modo operacional: ECONOMIA
   Acao: ATIVAR MODO ECONOMIA: desligar sistemas nao essenciais (prio 3)
   Acao: ALERTA: reduzir consumo
 

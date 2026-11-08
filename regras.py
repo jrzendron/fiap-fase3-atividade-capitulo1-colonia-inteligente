@@ -5,15 +5,19 @@ LIMITE_ENERGIA_CRITICA = 20   # Abaixo de 20%, o caso é emergência.
 LIMITE_CONSUMO_ALTO = 60      # Consumo acima de 60 kWh é alto.
 LIMITE_FRIO_EXTREMO = -80     # Temperatura abaixo de -80 °C é extrema.
 
+# Significado de cada proposição, usado na saída.
+SIGNIFICADO = {"A": "reserva baixa", "B": "consumo alto", "C": "reserva critica",
+               "D": "frio extremo", "E": "deficit previsto", "F": "tempestade de poeira"}
+
 
 def calcular_proposicoes(estado, geracao_prevista=None):
     """Avalia as seis condições usadas nas decisões."""
-    energia = estado["energia_reserva"]  # Porcentagem disponível na bateria.
+    reserva_percentual = estado["energia_reserva"]  # Porcentagem disponível na bateria.
     consumo = estado["consumo"]  # Energia usada pela colônia em kWh.
     return {
-        "A": energia < LIMITE_ENERGIA_BAIXA,  # Reserva baixa.
+        "A": reserva_percentual < LIMITE_ENERGIA_BAIXA,  # Reserva baixa.
         "B": consumo > LIMITE_CONSUMO_ALTO,  # Consumo alto.
-        "C": energia < LIMITE_ENERGIA_CRITICA,  # Reserva crítica.
+        "C": reserva_percentual < LIMITE_ENERGIA_CRITICA,  # Reserva crítica.
         "D": estado.get("temperatura", 0) < LIMITE_FRIO_EXTREMO,  # Frio extremo.
         "E": geracao_prevista is not None and geracao_prevista < consumo,  # Déficit previsto.
         "F": estado.get("tempestade_poeira", False),  # Poeira no ambiente.

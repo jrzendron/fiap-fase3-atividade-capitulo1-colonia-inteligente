@@ -60,7 +60,8 @@ def desligar_por_prioridade(arvore, prioridade_minima):
     desligados = []  # Registra os nomes para mostrar a decisão.
     for equipamento in listar_folhas(arvore):  # Verifica cada equipamento.
         prioridade = equipamento["prioridade"]
-        if prioridade is not None and prioridade != 1 and prioridade >= prioridade_minima and equipamento["ligado"]:
+        pode_desligar = prioridade is not None and prioridade != 1 and prioridade >= prioridade_minima
+        if pode_desligar and equipamento["ligado"]:  # Só desliga o que ainda está ligado.
             equipamento["ligado"] = False  # Atualiza o estado na árvore.
             desligados.append(equipamento["nome"])  # Guarda o que foi desligado.
     return desligados

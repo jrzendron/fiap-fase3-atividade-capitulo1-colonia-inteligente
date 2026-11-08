@@ -26,15 +26,15 @@
 <p>Cada equipamento tem um consumo, uma prioridade e um estado ligado ou desligado. Os equipamentos de suporte à vida têm prioridade 1 e não são desligados pelas regras.</p>
 
 <h2>Regras de decisão</h2>
-<p>Se a reserva cair abaixo de 20%, o sistema entra em emergência e desliga as prioridades 2 e 3. Se a reserva estiver abaixo de 50% e o consumo passar de 60 kWh, entra em modo de economia e desliga a prioridade 3. Uma reserva abaixo de 50% também gera um alerta para reduzir o consumo.</p>
-<p>Quando a geração prevista não cobre o consumo, o programa avisa antes de faltar energia. Em uma tempestade de poeira, recomenda priorizar a geração eólica e as baterias.</p>
+<p>O sistema entra em emergência quando a reserva está abaixo de 20% ou quando a temperatura está abaixo de −80 °C e a reserva está abaixo de 50%. Fora da emergência, uma reserva abaixo de 50% combinada com demanda acima de 60 kWh ativa o modo de economia. Quando a geração prevista fica abaixo da demanda de referência e a reserva é de pelo menos 50%, o sistema entra em modo de atenção e emite um aviso preventivo. A emergência desliga as prioridades 2 e 3; a economia desliga a prioridade 3. Uma reserva abaixo de 50% também gera um alerta para reduzir o consumo.</p>
+<p>Em uma tempestade de poeira, recomenda priorizar a geração eólica e as baterias.</p>
 <p class="exemplo">Entrada: reserva de 40% e consumo de 70 kWh.<br>Saída: modo de economia e alerta para reduzir o consumo.</p>
 
 <h2>Previsão de energia</h2>
 <p>A previsão usa regressão linear simples, calculada com os dados históricos. Com ventos de 8, 10 e 12 m/s e gerações de 20, 25 e 30 kWh, um vento de 11 m/s resulta em aproximadamente 27,5 kWh de energia eólica. O programa também estima a geração solar a partir da irradiação prevista.</p>
 
 <h2>Uso de energia</h2>
-<p>O sistema compara geração e consumo. Se o consumo for maior, mostra um alerta. Se houver sobra, sugere armazenar a energia. No cenário apresentado, a geração prevista é de 50,3 kWh e o consumo inicial é de 70 kWh. Ao desligar os equipamentos não essenciais, o consumo cai para 45 kWh, sem interromper o suporte à vida.</p>
+<p>O sistema compara a geração prevista com a demanda de referência. O saldo da próxima hora usa a demanda dos equipamentos atualmente ligados, supondo que permaneçam ligados durante esse período. A estimativa pela tendência histórica (72,1 kWh) é apenas informativa. Se o consumo for maior, mostra um alerta. Se houver sobra, sugere armazenar a energia. No cenário apresentado, a geração prevista é de 50,35 kWh e a demanda de referência é de 70 kWh. Ao desligar os equipamentos não essenciais, o consumo cai para 45 kWh, sem interromper o suporte à vida.</p>
 
 <h2>Repositório</h2>
 <p>Código e instruções de execução:</p>

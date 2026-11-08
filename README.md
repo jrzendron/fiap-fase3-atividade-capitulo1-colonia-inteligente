@@ -12,6 +12,12 @@ Na pasta do repositório, execute:
 python3 main.py
 ```
 
+No Windows, com o lançador `py` instalado:
+
+```bash
+py -3 main.py
+```
+
 O programa mostra os dados da colônia, a previsão de geração, a análise de energia e a decisão tomada. Ao final, apresenta exemplos com entradas e saídas conhecidas.
 
 ## Arquivos da entrega
@@ -34,14 +40,14 @@ A reserva é medida em porcentagem; geração e consumo são medidos em kWh. Em 
 
 As principais regras são:
 
-- Reserva abaixo de 20% ou frio extremo com reserva baixa: emergência.
-- Reserva abaixo de 50% e consumo acima de 60 kWh: modo de economia.
+- Reserva abaixo de 20%, ou temperatura abaixo de −80 °C com reserva abaixo de 50%: emergência.
+- Fora da emergência, reserva abaixo de 50% e demanda acima de 60 kWh: modo de economia.
 - Reserva abaixo de 50%: alerta para reduzir o consumo.
-- Geração prevista menor que o consumo, com reserva normal: aviso antecipado.
+- Geração prevista abaixo da demanda de referência, com reserva de pelo menos 50%: modo de atenção e aviso preventivo.
 
 ## Previsão e análise de energia
 
-`previsao.py` ajusta uma reta aos dados históricos por mínimos quadrados. A previsão de vento alimenta a estimativa de energia eólica; a irradiação alimenta a estimativa solar. O programa compara a geração prevista ao consumo atual e calcula o saldo. Se houver déficit, emite um alerta. Se houver excedente, sugere armazenar energia.
+`previsao.py` ajusta uma reta aos dados históricos por mínimos quadrados. A previsão de vento alimenta a estimativa de energia eólica; a irradiação alimenta a estimativa solar. O programa compara a geração prevista à demanda de referência e calcula o saldo. O saldo da próxima hora usa a demanda dos equipamentos atualmente ligados, supondo que permaneçam ligados durante esse período. A estimativa de consumo pela tendência histórica é apenas informativa e fica fora do saldo. Se houver déficit, emite um alerta. Se houver excedente, sugere armazenar energia.
 
 ## Exemplos de entrada e saída
 
