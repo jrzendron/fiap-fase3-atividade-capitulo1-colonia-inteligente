@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="32.6.10">
+  <diagram id="aurora-1" name="1 Dados da colônia">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="270" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="colonia" value="Colônia Aurora" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F8EFF3;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="390" y="15" width="220" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="energia" value="Energia" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="20" y="125" width="195" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="liga-energia" value="" edge="1" parent="1" source="colonia" target="energia" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="detalhe-energia" value="Reserva e geração&#10;solar / eólica" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="16" y="188" width="203" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="clima" value="Clima" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="275" y="125" width="195" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="liga-clima" value="" edge="1" parent="1" source="colonia" target="clima" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="detalhe-clima" value="Vento e&#10;temperatura" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="271" y="188" width="203" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="sistemas" value="Sistemas" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="530" y="125" width="195" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="liga-sistemas" value="" edge="1" parent="1" source="colonia" target="sistemas" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="detalhe-sistemas" value="Essenciais e&#10;não essenciais" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="526" y="188" width="203" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="historico" value="Histórico" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="785" y="125" width="195" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="liga-historico" value="" edge="1" parent="1" source="colonia" target="historico" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="detalhe-historico" value="Listas de vento&#10;e energia" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=17;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="781" y="188" width="203" height="54" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="aurora-2" name="2 Gráfico da regressão">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="470" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eixo-y-titulo" value="Energia eólica (kWh)" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#222222;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="95" y="0" width="500" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="grade-x-0" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#E4E4E4;strokeWidth=0.8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="181.5" y="50" as="sourcePoint" />
+            <mxPoint x="181.5" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="valor-x-0" value="8" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="151.5" y="370" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="grade-x-1" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#E4E4E4;strokeWidth=0.8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="527.5" y="50" as="sourcePoint" />
+            <mxPoint x="527.5" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="valor-x-1" value="10" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="497.5" y="370" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="grade-x-2" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#E4E4E4;strokeWidth=0.8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="873.5" y="50" as="sourcePoint" />
+            <mxPoint x="873.5" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="valor-x-2" value="12" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="843.5" y="370" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="grade-y-0" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#E4E4E4;strokeWidth=0.8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="315.7142857142857" as="sourcePoint" />
+            <mxPoint x="960" y="315.7142857142857" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="valor-y-0" value="20" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#222222;align=right;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="25" y="300.7142857142857" width="55" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="grade-y-1" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#E4E4E4;strokeWidth=0.8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="205.0" as="sourcePoint" />
+            <mxPoint x="960" y="205.0" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="valor-y-1" value="25" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#222222;align=right;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="25" y="190.0" width="55" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="grade-y-2" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#E4E4E4;strokeWidth=0.8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="94.28571428571428" as="sourcePoint" />
+            <mxPoint x="960" y="94.28571428571428" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="valor-y-2" value="30" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=18;fontColor=#222222;align=right;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="25" y="79.28571428571428" width="55" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="eixo-x" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#333333;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="360" as="sourcePoint" />
+            <mxPoint x="960" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eixo-y" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#333333;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="50" as="sourcePoint" />
+            <mxPoint x="95" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="reta-regressao" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#252525;strokeWidth=2.4;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="181.5" y="315.7142857142857" as="sourcePoint" />
+            <mxPoint x="873.5" y="94.28571428571428" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guia-vento" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#999999;strokeWidth=1;dashed=1;dashPattern=5 4;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700.5" y="360" as="sourcePoint" />
+            <mxPoint x="700.5" y="149.64285714285714" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guia-energia" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#999999;strokeWidth=1;dashed=1;dashPattern=5 4;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95" y="149.64285714285714" as="sourcePoint" />
+            <mxPoint x="700.5" y="149.64285714285714" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ponto-0" value="" style="ellipse;fillColor=#252525;strokeColor=#252525;" vertex="1" parent="1">
+          <mxGeometry x="176.5" y="310.7142857142857" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="ponto-1" value="" style="ellipse;fillColor=#252525;strokeColor=#252525;" vertex="1" parent="1">
+          <mxGeometry x="522.5" y="200.0" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="ponto-2" value="" style="ellipse;fillColor=#252525;strokeColor=#252525;" vertex="1" parent="1">
+          <mxGeometry x="868.5" y="89.28571428571428" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="ponto-previsto" value="" style="ellipse;fillColor=#E6005C;strokeColor=#E6005C;" vertex="1" parent="1">
+          <mxGeometry x="694.5" y="143.64285714285714" width="12" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="previsao-texto" value="11 m/s = 27,5 kWh" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=20;fontColor=#E6005C;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="175" y="65" width="310" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="previsao-seta" value="" edge="1" parent="1" style="html=0;endArrow=open;endFill=0;strokeColor=#E6005C;strokeWidth=1.1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="94" as="sourcePoint" />
+            <mxPoint x="692.5" y="144.64285714285714" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legenda-reta" value="" edge="1" parent="1" style="html=0;endArrow=none;endFill=0;strokeColor=#252525;strokeWidth=2.4;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="705" y="285" as="sourcePoint" />
+            <mxPoint x="744" y="285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legenda-reta-texto" value="Reta y = 0 + 2,5x" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=16;fontColor=#222222;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="755" y="270" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legenda-ponto" value="" style="ellipse;fillColor=#252525;strokeColor=#252525;" vertex="1" parent="1">
+          <mxGeometry x="719" y="316" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="legenda-ponto-texto" value="Valores do exemplo" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=16;fontColor=#222222;align=left;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="755" y="306" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="eixo-x-titulo" value="Vento (m/s)" style="text;html=0;whiteSpace=wrap;strokeColor=none;fillColor=none;fontFamily=Arial;fontSize=20;fontColor=#222222;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="355" y="420" width="350" height="35" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="aurora-3" name="3 Fluxo do sistema">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="265" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="entrada" value="Receber os dados" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="10" y="15" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="organizar" value="Organizar e conferir" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="370" y="15" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="prever" value="Calcular a previsão" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="730" y="15" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="decidir" value="Aplicar as regras" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F8EFF3;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="730" y="185" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="priorizar" value="Manter os essenciais" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="370" y="185" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="saida" value="Mostrar saldo e ações" style="rounded=1;arcSize=8;whiteSpace=wrap;html=0;fillColor=#F6F6F6;strokeColor=#777777;strokeWidth=1;fontColor=#222222;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="10" y="185" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="fluxo-0" value="" edge="1" parent="1" source="entrada" target="organizar" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fluxo-1" value="" edge="1" parent="1" source="organizar" target="prever" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fluxo-2" value="" edge="1" parent="1" source="prever" target="decidir" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fluxo-3" value="" edge="1" parent="1" source="decidir" target="priorizar" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fluxo-4" value="" edge="1" parent="1" source="priorizar" target="saida" style="edgeStyle=none;html=0;endArrow=open;endFill=0;strokeColor=#777777;strokeWidth=1.2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
