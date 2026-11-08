@@ -48,12 +48,12 @@ def decidir(estado, geracao_prevista=None):
         acoes.append("ALERTA: reduzir consumo")
 
     if deficit_previsto and not reserva_baixa:  # Avisa antes de faltar energia.
-        acoes.append("PREVENCAO: geracao prevista nao cobre o consumo - reduzir antes de faltar")
+        acoes.append("PREVENCAO: geracao prevista nao cobre o consumo; reduzir antes de faltar")
         if modo == "NORMAL":  # Um aviso preventivo não é emergência.
             modo = "ATENCAO"
 
     if tempestade:  # A poeira prejudica os painéis solares.
-        acoes.append("CLIMA: tempestade de poeira - priorizar energia eolica e baterias")
+        acoes.append("CLIMA: tempestade de poeira; priorizar energia eolica e baterias")
 
     if len(acoes) == 0:  # Nenhuma regra encontrou um problema.
         acoes.append("OK: colonia operando normalmente")

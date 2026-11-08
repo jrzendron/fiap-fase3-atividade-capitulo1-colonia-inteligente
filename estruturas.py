@@ -7,7 +7,7 @@ def imprimir_arvore(no, nivel=0):
     info = ""  # Grupos não têm consumo nem prioridade próprios.
     if no["prioridade"] is not None:  # Só equipamentos mostram esses dados.
         info = f"  [prio {no['prioridade']} | {status} | {no['consumo']} kWh]"
-    print("   " * nivel + "- " + no["nome"] + info)  # Indenta pelo nível.
+    print("   " * nivel + no["nome"] + info)  # Indenta pelo nível.
     for filho in no["filhos"]:  # Visita os itens dentro do grupo.
         imprimir_arvore(filho, nivel + 1)  # O filho aparece um nível abaixo.
 

@@ -27,7 +27,7 @@ def analisar_energia(geracao, consumo, reserva=None):
             mensagem += " (reserva de pelo menos 50%)"
 
     if reserva is not None and situacao == "EXCEDENTE" and reserva >= 100:  # Baterias cheias.
-        mensagem = "SUGESTAO: baterias cheias - ligar sistemas nao essenciais / estufa"
+        mensagem = "SUGESTAO: baterias cheias; ligar sistemas nao essenciais ou a estufa"
 
     # Mantém os números junto da classificação para uso no relatório da execução.
     return {"geracao": geracao, "consumo": consumo, "saldo": saldo,

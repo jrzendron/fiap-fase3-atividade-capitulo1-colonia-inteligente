@@ -1,4 +1,4 @@
-# FIAP Fase 3 - Atividade do Capítulo 1: Colônia Inteligente
+# FIAP Fase 3: Atividade do Capítulo 1, Colônia Inteligente
 
 Sistema em Python que organiza os dados de uma colônia, estima a geração de energia e define ações para equilibrar geração e consumo. O programa usa apenas a biblioteca padrão do Python.
 
@@ -46,10 +46,10 @@ As principais regras são:
 ## Exemplos de entrada e saída
 
 ```text
-reserva=40%, consumo=70 kWh -> ATIVAR MODO ECONOMIA; ALERTA: reduzir consumo
-geração=40 kWh, consumo=70 kWh -> ALERTA: consumo maior que geração
-geração=80 kWh, consumo=30 kWh -> SUGESTÃO: armazenar energia excedente
-vento=[8, 10, 12], energia=[20, 25, 30], vento previsto=11 -> 27,5 kWh
+reserva=40%, consumo=70 kWh. Decisão: modo de economia e alerta para reduzir o consumo
+geração=40 kWh, consumo=70 kWh. Análise: consumo maior que geração
+geração=80 kWh, consumo=30 kWh. Análise: armazenar energia excedente
+vento=[8, 10, 12], energia=[20, 25, 30], vento previsto=11. Previsão: 27,5 kWh
 ```
 
 O cenário completo do programa está em `saida_exemplo.txt`.
