@@ -1,0 +1,91 @@
+
+================================================================
+ 1) DADOS DA COLONIA
+================================================================
+Estado atual (chave-valor):
+   energia_reserva      = 40
+   consumo              = 70
+   temperatura          = -63
+   vento_previsto       = 11
+   irradiacao_prevista  = 450
+   tempestade_poeira    = False
+
+Hierarquia dos sistemas (arvore):
+- Colonia
+   - Sistema Energetico
+      - Solar  [prio 1 | ON  | 0 kWh]
+      - Eolico  [prio 1 | ON  | 0 kWh]
+      - Baterias  [prio 1 | ON  | 0 kWh]
+   - Suporte a Vida
+      - Oxigenio  [prio 1 | ON  | 15 kWh]
+      - Aquecimento  [prio 1 | ON  | 12 kWh]
+      - Agua  [prio 1 | ON  | 8 kWh]
+   - Producao
+      - Estufa  [prio 2 | ON  | 10 kWh]
+      - Laboratorio  [prio 3 | ON  | 9 kWh]
+   - Conforto
+      - Iluminacao Decorativa  [prio 3 | ON  | 6 kWh]
+      - Entretenimento  [prio 3 | ON  | 10 kWh]
+
+Busca pela tabela hash -> indice['Oxigenio']: 15 kWh, prioridade 1
+Navegacao Colonia > Sistema Energetico > Solar: Solar encontrado
+
+================================================================
+ 2) PREVISAO (regressao linear)
+================================================================
+Eolica: energia = 2.65 * vento -1.50  (erro medio 0.68)
+   vento = 11 m/s  ->  previsao = 27.6 kWh
+Solar:  energia = 0.050 * irradiacao +0.20
+   irradiacao = 450 W/m2  ->  previsao = 22.7 kWh
+Consumo: tendencia subindo (+3.5 kWh/h) -> proxima hora ~ 72.1 kWh
+
+================================================================
+ 3) ANALISE DE ENERGIA
+================================================================
+Geracao prevista: 50.3 kWh | Consumo: 70 kWh | Saldo: -19.7 kWh
+Cobertura: 71.9%
+Saida -> ALERTA: consumo maior que geracao e reserva baixa
+
+================================================================
+ 4) DECISAO AUTOMATICA
+================================================================
+Proposicoes: A=V, B=V, C=F, D=F, E=V, F=F
+Modo: ECONOMIA
+  -> ATIVAR MODO ECONOMIA: desligar sistemas nao essenciais (prio 3)
+  -> ALERTA: reduzir consumo
+
+Sistemas desligados: Laboratorio, Iluminacao Decorativa, Entretenimento
+Consumo: 70 kWh -> 45 kWh (economia de 25 kWh)
+Nova analise -> SUGESTAO: armazenar energia excedente
+
+Arvore apos a decisao:
+- Colonia
+   - Sistema Energetico
+      - Solar  [prio 1 | ON  | 0 kWh]
+      - Eolico  [prio 1 | ON  | 0 kWh]
+      - Baterias  [prio 1 | ON  | 0 kWh]
+   - Suporte a Vida
+      - Oxigenio  [prio 1 | ON  | 15 kWh]
+      - Aquecimento  [prio 1 | ON  | 12 kWh]
+      - Agua  [prio 1 | ON  | 8 kWh]
+   - Producao
+      - Estufa  [prio 2 | ON  | 10 kWh]
+      - Laboratorio  [prio 3 | OFF | 9 kWh]
+   - Conforto
+      - Iluminacao Decorativa  [prio 3 | OFF | 6 kWh]
+      - Entretenimento  [prio 3 | OFF | 10 kWh]
+
+================================================================
+ EXEMPLOS RAPIDOS (entrada -> saida)
+================================================================
+energia=40, consumo=70  ->  ATIVAR MODO ECONOMIA: desligar sistemas nao essenciais (prio 3) | ALERTA: reduzir consumo
+energia=45, consumo=50  ->  ALERTA: reduzir consumo
+energia=15, consumo=40  ->  EMERGENCIA: manter apenas suporte a vida, desligar sistemas prio 2 e 3 | ALERTA: reduzir consumo
+energia=80, consumo=30  ->  OK: colonia operando normalmente
+
+geracao=40, consumo=70  ->  ALERTA: consumo maior que geracao
+geracao=80, consumo=30  ->  SUGESTAO: armazenar energia excedente
+geracao=60, consumo=58  ->  OK: geracao e consumo equilibrados
+
+vento=[8,10,12], energia=[20,25,30] -> reta: energia = 2.5*vento + 0.0
+vento = 11  ->  previsao de energia ~ 27.5
