@@ -21,11 +21,11 @@ def titulo(texto):
     print("=" * 64)
 
 
-def mostrar_dados(arvore):
+def mostrar_dados(estado, arvore):
     """Mostra o estado atual e como os sistemas estão organizados."""
     titulo("1) DADOS DA COLONIA")
     print("Estado atual (chave-valor):")
-    for chave, valor in dados.estado_atual.items():  # Lê cada par do dicionário.
+    for chave, valor in estado.items():  # Lê cada par do dicionário.
         print(f"   {chave:<20} = {valor}")
 
     print("\nHierarquia dos sistemas (arvore):")
@@ -46,8 +46,9 @@ def fazer_previsoes(estado):
     # O histórico de vento determina a reta da geração eólica (ŷ = β0 + β1·x).
     beta0_e, beta1_e = previsao.ajustar_reta(dados.historico_vento, dados.historico_energia_eolica)
     eolica = previsao.prever(beta0_e, beta1_e, estado["vento_previsto"])  # Aplica o vento previsto.
-    print(f"Eolica: energia = {beta0_e:.2f} {beta1_e:+.2f} * vento  "
-          f"(erro medio {previsao.erro_medio(dados.historico_vento, dados.historico_energia_eolica, beta0_e, beta1_e):.2f})")
+    print(f"Eolica: energia = {beta0_e:.2f} {beta1_e:+.2f} * vento")
+    print(f"   Erro absoluto medio no historico de ajuste: "
+          f"{previsao.erro_medio(dados.historico_vento, dados.historico_energia_eolica, beta0_e, beta1_e):.2f} kWh")
     print(f"   vento = {estado['vento_previsto']} m/s; previsao = {eolica:.1f} kWh")
 
     # A irradiação prevista alimenta a mesma conta para os painéis solares.
@@ -60,7 +61,8 @@ def fazer_previsoes(estado):
 
     consumo_prox, inclinacao = previsao.tendencia(dados.historico_consumo)  # Próxima hora.
     direcao = "subindo" if inclinacao > 0 else "caindo"  # Interpreta a inclinação.
-    print(f"Consumo: tendencia {direcao} ({inclinacao:+.1f} kWh/h); proxima hora: {consumo_prox:.1f} kWh")
+    # Só informa a tendência; o saldo usa a demanda dos equipamentos ligados.
+    print(f"Estimativa de consumo pela tendencia historica ({direcao}, {inclinacao:+.1f} kWh/h): {consumo_prox:.1f} kWh")
 
     # A geração total será usada na análise e nas regras.
     return {"eolica": eolica, "solar": solar, "total": eolica + solar, "consumo_previsto": consumo_prox}
@@ -69,11 +71,12 @@ def fazer_previsoes(estado):
 def analisar(estado, previsoes):
     """Compara a geração prevista com o consumo atual."""
     titulo("3) ANALISE DE ENERGIA")
-    resultado = analise_energia.analisar_energia(round(previsoes["total"], 1), estado["consumo"],
+    resultado = analise_energia.analisar_energia(previsoes["total"], estado["consumo"],
                                                  estado["energia_reserva"])
     # O saldo mostra quanto sobra ou falta na próxima hora.
-    print(f"Geracao prevista: {resultado['geracao']} kWh | Consumo: {resultado['consumo']} kWh "
-          f"| Saldo: {resultado['saldo']:+.1f} kWh")
+    # O saldo supõe que os equipamentos ligados continuem ligados durante a próxima hora.
+    print(f"Geracao prevista: {resultado['geracao']:.2f} kWh | Demanda de referencia da proxima hora "
+          f"com as cargas atuais: {resultado['consumo']} kWh | Saldo: {resultado['saldo']:+.2f} kWh")
     print(f"Cobertura: {analise_energia.eficiencia(resultado['geracao'], resultado['consumo'])}%")
     print("Resultado:", resultado["mensagem"])
     return resultado  # O diagnóstico também pode ser usado por outra etapa.
@@ -83,8 +86,9 @@ def decidir_e_agir(estado, previsoes, arvore):
     """Aplica as regras e atualiza os equipamentos quando preciso."""
     titulo("4) DECISAO AUTOMATICA")
     decisao = regras.decidir(estado, previsoes["total"])  # Considera o déficit previsto.
-    print("Proposicoes:", ", ".join(f"{k}={'V' if v else 'F'}" for k, v in decisao["proposicoes"].items()))
-    print("Modo:", decisao["modo"])
+    print("Proposicoes:", ", ".join(f"{k} ({regras.SIGNIFICADO[k]})={'V' if v else 'F'}"
+                                    for k, v in decisao["proposicoes"].items()))
+    print("Modo operacional:", decisao["modo"])
     for acao in decisao["acoes"]:  # Uma decisão pode gerar mais de um aviso.
         print("  Acao:", acao)
 
@@ -96,8 +100,11 @@ def decidir_e_agir(estado, previsoes, arvore):
         print(f"Consumo antes: {antes} kWh; depois: {depois} kWh; economia: {antes - depois} kWh")
         estado["consumo"] = depois  # Mantém o estado igual à árvore.
 
-        nova = analise_energia.analisar_energia(round(previsoes["total"], 1), depois, estado["energia_reserva"])
+        nova = analise_energia.analisar_energia(previsoes["total"], depois, estado["energia_reserva"])
         print("Nova analise:", nova["mensagem"])
+        if decisao["modo"] == "EMERGENCIA" and nova["saldo"] < 0:  # Mostra quanto falta para o essencial.
+            print(f"Demanda essencial: {depois:.2f} kWh | Geracao prevista: {nova['geracao']:.2f} kWh "
+                  f"| Deficit de geracao: {-nova['saldo']:.2f} kWh")
         print("\nArvore apos a decisao:")
         estruturas.imprimir_arvore(arvore)  # Mostra os equipamentos desligados.
     return decisao
@@ -106,7 +113,7 @@ def decidir_e_agir(estado, previsoes, arvore):
 def executar_ciclo(estado, arvore):
     """Executa as quatro etapas na ordem usada pela colônia."""
     estado["consumo"] = estruturas.consumo_total(arvore)  # Lê o consumo da árvore.
-    mostrar_dados(arvore)  # Apresenta o cenário inicial.
+    mostrar_dados(estado, arvore)  # Apresenta o cenário inicial.
     previsoes = fazer_previsoes(estado)  # Calcula a próxima hora.
     analisar(estado, previsoes)  # Verifica o saldo de energia.
     decidir_e_agir(estado, previsoes, arvore)  # Escolhe e aplica a ação.
