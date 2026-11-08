@@ -43,19 +43,19 @@ def fazer_previsoes(estado):
     """Estima geração e consumo usando os históricos."""
     titulo("2) PREVISAO (regressao linear)")
 
-    # O histórico de vento determina a reta da geração eólica.
-    a_e, b_e = previsao.ajustar_reta(dados.historico_vento, dados.historico_energia_eolica)
-    eolica = previsao.prever(a_e, b_e, estado["vento_previsto"])  # Aplica o vento previsto.
-    print(f"Eolica: energia = {a_e:.2f} * vento {b_e:+.2f}  "
-          f"(erro medio {previsao.erro_medio(dados.historico_vento, dados.historico_energia_eolica, a_e, b_e):.2f})")
+    # O histórico de vento determina a reta da geração eólica (ŷ = β0 + β1·x).
+    beta0_e, beta1_e = previsao.ajustar_reta(dados.historico_vento, dados.historico_energia_eolica)
+    eolica = previsao.prever(beta0_e, beta1_e, estado["vento_previsto"])  # Aplica o vento previsto.
+    print(f"Eolica: energia = {beta0_e:.2f} {beta1_e:+.2f} * vento  "
+          f"(erro medio {previsao.erro_medio(dados.historico_vento, dados.historico_energia_eolica, beta0_e, beta1_e):.2f})")
     print(f"   vento = {estado['vento_previsto']} m/s; previsao = {eolica:.1f} kWh")
 
     # A irradiação prevista alimenta a mesma conta para os painéis solares.
-    a_s, b_s = previsao.ajustar_reta(dados.historico_irradiacao, dados.historico_energia_solar)
-    solar = previsao.prever(a_s, b_s, estado["irradiacao_prevista"])
+    beta0_s, beta1_s = previsao.ajustar_reta(dados.historico_irradiacao, dados.historico_energia_solar)
+    solar = previsao.prever(beta0_s, beta1_s, estado["irradiacao_prevista"])
     if estado["tempestade_poeira"]:  # A poeira prejudica os painéis.
         solar = solar * 0.3  # Considera 30% da geração solar prevista.
-    print(f"Solar:  energia = {a_s:.3f} * irradiacao {b_s:+.2f}")
+    print(f"Solar:  energia = {beta0_s:.2f} {beta1_s:+.3f} * irradiacao")
     print(f"   irradiacao = {estado['irradiacao_prevista']} W/m2; previsao = {solar:.1f} kWh")
 
     consumo_prox, inclinacao = previsao.tendencia(dados.historico_consumo)  # Próxima hora.
@@ -130,9 +130,9 @@ def exemplos_rapidos():
         print(f"geracao={geracao} kWh, consumo={consumo} kWh. Analise: {analise_energia.analisar_energia(geracao, consumo)['mensagem']}")
 
     print()  # Separa o exemplo de regressão.
-    inclinacao, valor_inicial = previsao.ajustar_reta([8, 10, 12], [20, 25, 30])
-    print(f"vento=[8,10,12], energia=[20,25,30]. Reta: energia = {inclinacao}*vento + {valor_inicial}")
-    print(f"vento = 11; previsao de energia = {previsao.prever(inclinacao, valor_inicial, 11)} kWh")
+    beta0, beta1 = previsao.ajustar_reta([8, 10, 12], [20, 25, 30])
+    print(f"vento=[8,10,12], energia=[20,25,30]. Reta: energia = {beta0} + {beta1}*vento")
+    print(f"vento = 11; previsao de energia = {previsao.prever(beta0, beta1, 11)} kWh")
 
 
 if __name__ == "__main__":  # Permite importar as funções sem rodar a demonstração.

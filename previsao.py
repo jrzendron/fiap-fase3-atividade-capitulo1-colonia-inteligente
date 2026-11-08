@@ -1,4 +1,4 @@
-"""Cálculos de regressão linear usados nas previsões."""
+"""Cálculos de regressão linear (mínimos quadrados) usados nas previsões."""
 
 
 def media(valores):
@@ -7,39 +7,40 @@ def media(valores):
 
 
 def ajustar_reta(x, y):
-    """Encontra a inclinação e o ponto inicial da reta que aproxima os dados."""
+    """Encontra β0 (intercepto) e β1 (inclinação) da reta ŷ = β0 + β1·x."""
     if len(x) != len(y) or len(x) < 2:  # Cada entrada precisa ter uma saída.
         raise ValueError("As listas precisam ter o mesmo tamanho (minimo 2 pontos).")
 
-    mx = media(x)  # Centro dos valores de entrada.
-    my = media(y)  # Centro dos valores de saída.
+    x_barra = media(x)  # x̄: centro dos valores de entrada.
+    y_barra = media(y)  # ȳ: centro dos valores de saída.
 
-    numerador = 0  # Mede como entrada e saída variam juntas.
-    denominador = 0  # Mede a variação das entradas.
+    soma_produtos = 0     # Σ(xi − x̄)(yi − ȳ): como entrada e saída variam juntas.
+    soma_quadrados_x = 0  # Σ(xi − x̄)²: variação das entradas.
     for i in range(len(x)):  # Usa todas as medições históricas.
-        numerador = numerador + (x[i] - mx) * (y[i] - my)
-        denominador = denominador + (x[i] - mx) ** 2
+        soma_produtos = soma_produtos + (x[i] - x_barra) * (y[i] - y_barra)
+        soma_quadrados_x = soma_quadrados_x + (x[i] - x_barra) ** 2
 
-    a = numerador / denominador  # Inclinação da reta.
-    b = my - a * mx  # Valor onde a reta começa.
-    return a, b  # Esses dois números permitem prever outro ponto.
-
-
-def prever(a, b, x_novo):
-    """Aplica a reta a um novo valor de entrada."""
-    return a * x_novo + b  # Exemplo: vento previsto vira energia estimada.
+    beta1 = soma_produtos / soma_quadrados_x  # β1: inclinação da reta.
+    beta0 = y_barra - beta1 * x_barra         # β0: intercepto (valor de y quando x = 0).
+    return beta0, beta1  # Mesma ordem do capítulo: ŷ = β0 + β1·x
 
 
-def erro_medio(x, y, a, b):
-    """Mostra a diferença média entre a reta e os dados conhecidos."""
-    erros = []  # Guarda o erro de cada medição.
-    for i in range(len(x)):  # Compara previsão e resultado real.
-        erros.append(abs(y[i] - prever(a, b, x[i])))
-    return media(erros)  # Resume os erros em um único valor.
+def prever(beta0, beta1, x_novo):
+    """Aplica a reta ŷ = β0 + β1·x a um novo valor de entrada."""
+    return beta0 + beta1 * x_novo  # Exemplo: vento previsto vira energia estimada.
+
+
+def erro_medio(x, y, beta0, beta1):
+    """Média dos resíduos (ei = yi − ŷi) em valor absoluto."""
+    residuos = []  # Guarda o resíduo de cada medição.
+    for i in range(len(x)):  # Compara valor real e previsto.
+        residuo = y[i] - prever(beta0, beta1, x[i])
+        residuos.append(abs(residuo))
+    return media(residuos)  # Resume os resíduos em um único valor.
 
 
 def tendencia(serie):
     """Estima o próximo valor de uma sequência, como o consumo por hora."""
     tempos = list(range(len(serie)))  # Numera as horas a partir de zero.
-    a, b = ajustar_reta(tempos, serie)  # Ajusta a reta ao histórico.
-    return prever(a, b, len(serie)), a  # Devolve a próxima hora e a tendência.
+    beta0, beta1 = ajustar_reta(tempos, serie)  # Ajusta a reta ao histórico.
+    return prever(beta0, beta1, len(serie)), beta1  # Próxima hora e a inclinação (tendência).
